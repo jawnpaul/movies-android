@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.moviesapp.movies.discover.DiscoverViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".movies.discover.DiscoverFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAppBar"
+            android:fitsSystemWindows="true"
+            app:liftOnScroll="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                style="?attr/collapsingToolbarLayoutMediumStyle"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/collapsingToolbarLayoutMediumSize"
+                app:contentScrim="@color/colorAppBar"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:elevation="0dp"
+                    app:layout_collapseMode="pin"
+                    app:title="@string/discover" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:visibility="@{viewModel.movieListView.loading ? View.VISIBLE : View.GONE, default=visible}"
+                    app:shimmer_auto_start="true"
+                    app:shimmer_highlight_color="@color/strokeColor">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/movie_item_shimmer" />
+
+                        <include layout="@layout/movie_item_shimmer" />
+
+                        <include layout="@layout/movie_item_shimmer" />
+
+                        <include layout="@layout/movie_item_shimmer" />
+
+                        <include layout="@layout/movie_item_shimmer" />
+
+
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/discover_movie_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="?attr/actionBarSize"
+                    android:nestedScrollingEnabled="false"
+                    app:discover_movies="@{viewModel.movieListView.movies}"
+                    tools:listitem="@layout/single_movie_item" />
+
+                <TextView
+                    android:id="@+id/no_discover"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/twenty_four"
+                    android:gravity="center"
+                    android:text="@string/no_movies_available_in_discover"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:visibility="@{viewModel.movieListView.empty ? View.VISIBLE : View.GONE, default=gone}" />
+
+                <TextView
+                    android:id="@+id/error_discover"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/twenty_four"
+                    android:gravity="center"
+                    android:text='@{viewModel.movieListView.errorMessage != null ? "Error" : ""}'
+                    android:textAllCaps="false"
+                    android:visibility="@{viewModel.movieListView.errorMessage != null ? View.VISIBLE : View.GONE, default=gone}" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

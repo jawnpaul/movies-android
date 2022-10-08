@@ -4,7 +4,7 @@ import com.example.movies.data.model.MovieEntity
 import com.example.movies.domain.exception.Failure
 import com.example.movies.domain.functional.Either
 
-interface ISearchMovieRemote {
+interface DiscoverMovieRemote {
 
-    suspend fun searchMovies(query: String): Either<Failure, List<MovieEntity>>
+    suspend fun discoverMovies(): Either<Failure, List<MovieEntity>>
 }

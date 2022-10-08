@@ -1,9 +1,9 @@
 package com.example.movies.core.di
 
-import com.example.movies.data.repository.DiscoverMovieRepository
-import com.example.movies.data.repository.SearchMovieRepository
-import com.example.movies.domain.repository.IDiscoverMovieRepository
-import com.example.movies.domain.repository.ISearchMovieRepository
+import com.example.movies.data.repository.DiscoverMovieRepositoryImpl
+import com.example.movies.data.repository.SearchMovieRepositoryImpl
+import com.example.movies.domain.repository.DiscoverMovieRepository
+import com.example.movies.domain.repository.SearchMovieRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,8 +14,8 @@ import dagger.hilt.components.SingletonComponent
 interface DataModule {
 
     @get:Binds
-    val DiscoverMovieRepository.discoverMovieRepository: IDiscoverMovieRepository
+    val DiscoverMovieRepositoryImpl.discoverMovieRepositoryImpl: DiscoverMovieRepository
 
     @get:Binds
-    val SearchMovieRepository.searchMovieRepository: ISearchMovieRepository
+    val SearchMovieRepositoryImpl.searchMovieRepositoryImpl: SearchMovieRepository
 }

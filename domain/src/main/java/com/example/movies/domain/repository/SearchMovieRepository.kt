@@ -5,7 +5,7 @@ import com.example.movies.domain.functional.Either
 import com.example.movies.domain.model.Movie
 import kotlinx.coroutines.flow.Flow
 
-interface ISearchMovieRepository {
+interface SearchMovieRepository {
 
     suspend fun searchMovies(query: String): Flow<Either<Failure, List<Movie>>>
 }

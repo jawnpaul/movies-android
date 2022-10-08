@@ -1,12 +1,12 @@
 package com.example.movies.core.di
 
 import com.example.movies.core.BuildConfig
-import com.example.movies.data.repository.DiscoverMovieRepository
-import com.example.movies.data.repository.SearchMovieRepository
-import com.example.movies.domain.repository.IDiscoverMovieRepository
-import com.example.movies.domain.repository.ISearchMovieRepository
+import com.example.movies.data.contract.remote.DiscoverMovieRemote
+import com.example.movies.data.contract.remote.SearchMovieRemote
 import com.example.movies.remote.ApiFactory
 import com.example.movies.remote.ApiService
+import com.example.movies.remote.contract.DiscoverMovieRemoteImpl
+import com.example.movies.remote.contract.SearchMovieRemoteImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -19,10 +19,10 @@ import javax.inject.Singleton
 interface RemoteModule {
 
     @get:Binds
-    val DiscoverMovieRepository.discoverMovieRepository: IDiscoverMovieRepository
+    val DiscoverMovieRemoteImpl.discoverMovieRemoteImpl: DiscoverMovieRemote
 
     @get:Binds
-    val SearchMovieRepository.searchMovieRepository: ISearchMovieRepository
+    val SearchMovieRemoteImpl.searchMovieRemoteImpl: SearchMovieRemote
 
     companion object {
         @[Provides Singleton]

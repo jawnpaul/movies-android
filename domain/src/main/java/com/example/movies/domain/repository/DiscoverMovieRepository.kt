@@ -5,7 +5,7 @@ import com.example.movies.domain.functional.Either
 import com.example.movies.domain.model.Movie
 import kotlinx.coroutines.flow.Flow
 
-interface IDiscoverMovieRepository {
+interface DiscoverMovieRepository {
 
     suspend fun discoverMovies(): Flow<Either<Failure, List<Movie>>>
 }
