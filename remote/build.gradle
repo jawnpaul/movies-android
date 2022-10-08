@@ -1,0 +1,26 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+dependencies {
+    implementation project(':data')
+
+    implementation remoteDependencies.retrofit
+    implementation remoteDependencies.retrofitMoshi
+    implementation remoteDependencies.okHTTPLogger
+    implementation remoteDependencies.javaxInject
+
+    testImplementation TestLibraries.junit
+    testImplementation TestLibraries.truth
+    testImplementation TestLibraries.mockWebServer
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8.toString()
+targetCompatibility = JavaVersion.VERSION_1_8.toString()
+
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+    test.java.srcDirs += 'src/test/kotlin'
+}
+apply from: "../ktlint.gradle"
