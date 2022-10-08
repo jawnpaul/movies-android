@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">moviesapp</string>
+    <string name="app_name">movies</string>
+
+    <string name="discover">Discover</string>
+    <string name="search">Search</string>
+    <string name="no_movies_available_in_discover">There are no movies available in discover</string>
 </resources>
