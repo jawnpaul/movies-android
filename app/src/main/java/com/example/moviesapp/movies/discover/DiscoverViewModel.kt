@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.movies.domain.exception.Failure
 import com.example.movies.domain.model.Movie
 import com.example.movies.domain.usecase.discover.DiscoverMoviesUseCase
+import com.example.movies.domain.usecase.discover.RecentDiscoverMoviesUseCase
 import com.example.moviesapp.mapper.MoviePresentationMapper
 import com.example.moviesapp.model.state.MovieListView
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,14 +17,11 @@ import javax.inject.Inject
 class DiscoverViewModel @Inject constructor(
     private val discoverMoviesUseCase: DiscoverMoviesUseCase,
     private val moviePresentationMapper: MoviePresentationMapper,
+    private val recentDiscoverMoviesUseCase: RecentDiscoverMoviesUseCase,
 ) :
     ViewModel() {
 
     private val job = Job()
-
-    init {
-        // discoverMovies()
-    }
 
     private val _movieListView = MutableLiveData<MovieListView>()
     val movieListView: LiveData<MovieListView>
@@ -40,6 +38,7 @@ class DiscoverViewModel @Inject constructor(
     }
 
     private fun handleDiscoverFailure(failure: Failure) {
+        getRecentDiscoveries()
         when (failure) {
             is Failure.ServerError -> {
                 _movieListView.value = MovieListView(loading = false, errorMessage = "Server Error")
@@ -57,6 +56,15 @@ class DiscoverViewModel @Inject constructor(
         } else {
             val presentationList = movies.map(moviePresentationMapper::mapToPresentation)
             _movieListView.value = MovieListView(loading = false, movies = presentationList)
+        }
+    }
+
+    private fun getRecentDiscoveries() {
+        recentDiscoverMoviesUseCase(job, RecentDiscoverMoviesUseCase.None()) {
+            it.fold(
+                ::handleDiscoverFailure,
+                ::handleDiscoverSuccess
+            )
         }
     }
 
