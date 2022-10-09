@@ -27,6 +27,9 @@ class DiscoverViewModel @Inject constructor(
     val movieListView: LiveData<MovieListView>
         get() = _movieListView
 
+    private val _showBottomNavBar = MutableLiveData(true)
+    val showBottomNavBar: LiveData<Boolean> get() = _showBottomNavBar
+
     fun discoverMovies() {
         _movieListView.value = MovieListView(loading = true)
         discoverMoviesUseCase(job, DiscoverMoviesUseCase.None()) {
@@ -66,6 +69,10 @@ class DiscoverViewModel @Inject constructor(
                 ::handleDiscoverSuccess
             )
         }
+    }
+
+    fun showBottomNavBar(value: Boolean) {
+        _showBottomNavBar.value = value
     }
 
     override fun onCleared() {
