@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class MovieRemoteModelMapper @Inject constructor() :
     RemoteModelMapper<MovieRemoteModel, MovieEntity> {
-    private val IMAGE_BASE_URL: String = "https://image.tmdb.org/t/p/w500"
+    val IMAGE_BASE_URL: String = "https://image.tmdb.org/t/p/w500"
     override fun mapFromModel(model: MovieRemoteModel): MovieEntity {
         return MovieEntity(
             id = model.id,

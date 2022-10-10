@@ -81,6 +81,7 @@ dependencies {
     testImplementation TestLibraries.androidX
     testImplementation TestLibraries.truth
     testImplementation TestLibraries.coroutines
+    testImplementation TestLibraries.mockk
 }
 
 apply from: "../ktlint.gradle"

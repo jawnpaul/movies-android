@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.movies.domain.exception.Failure
+import com.example.movies.domain.functional.onFailure
+import com.example.movies.domain.functional.onSuccess
 import com.example.movies.domain.model.Movie
 import com.example.movies.domain.usecase.discover.DiscoverMoviesUseCase
 import com.example.movies.domain.usecase.discover.RecentDiscoverMoviesUseCase
@@ -16,8 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DiscoverViewModel @Inject constructor(
     private val discoverMoviesUseCase: DiscoverMoviesUseCase,
-    private val moviePresentationMapper: MoviePresentationMapper,
     private val recentDiscoverMoviesUseCase: RecentDiscoverMoviesUseCase,
+    private val moviePresentationMapper: MoviePresentationMapper,
 ) :
     ViewModel() {
 
@@ -54,6 +56,7 @@ class DiscoverViewModel @Inject constructor(
     }
 
     private fun handleDiscoverSuccess(movies: List<Movie>) {
+
         if (movies.isEmpty()) {
             _movieListView.value = MovieListView(loading = false, isEmpty = true)
         } else {
@@ -62,12 +65,30 @@ class DiscoverViewModel @Inject constructor(
         }
     }
 
-    private fun getRecentDiscoveries() {
+    fun getRecentDiscoveries() {
+        _movieListView.value = MovieListView(loading = false)
+
         recentDiscoverMoviesUseCase(job, RecentDiscoverMoviesUseCase.None()) {
-            it.fold(
-                ::handleDiscoverFailure,
-                ::handleDiscoverSuccess
-            )
+            it.onFailure { failure ->
+                when (failure) {
+                    is Failure.ServerError -> {
+                        _movieListView.value =
+                            MovieListView(loading = false, errorMessage = "Server Error")
+                    }
+                    else -> {
+                        _movieListView.value =
+                            MovieListView(loading = false, errorMessage = "Something went wrong.")
+                    }
+                }
+            }
+            it.onSuccess { movies ->
+                if (movies.isEmpty()) {
+                    _movieListView.value = MovieListView(loading = false, isEmpty = true)
+                } else {
+                    val presentationList = movies.map(moviePresentationMapper::mapToPresentation)
+                    _movieListView.value = MovieListView(loading = false, movies = presentationList)
+                }
+            }
         }
     }
 
