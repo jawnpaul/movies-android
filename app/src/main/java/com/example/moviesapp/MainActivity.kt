@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         discoverViewModel.showBottomNavBar.observe(this) {
             when (it) {
                 true -> {
-                    binding.navView.visibility = View.VISIBLE
+                    binding.navView.visibility = View.GONE
                 }
                 false -> {
                     binding.navView.visibility = View.GONE
