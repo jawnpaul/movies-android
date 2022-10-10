@@ -9,10 +9,13 @@
         android:id="@+id/discoverFragment"
         android:name="com.example.moviesapp.movies.discover.DiscoverFragment"
         android:label="fragment_discover"
-        tools:layout="@layout/fragment_discover" />
+        tools:layout="@layout/fragment_discover" >
+        <action
+            android:id="@+id/action_discoverFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.example.moviesapp.movies.search.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        android:id="@+id/movieDetailFragment"
+        android:name="com.example.moviesapp.movies.detail.MovieDetailFragment"
+        android:label="MovieDetailFragment" />
 </navigation>

@@ -2,6 +2,7 @@
 <resources>
     <dimen name="eight">8dp</dimen>
     <dimen name="twenty_four">24dp</dimen>
+    <dimen name="sixteen">16dp</dimen>
     <dimen name="movie_image_width">170dp</dimen>
     <dimen name="movie_image_height">200dp</dimen>
     <dimen name="movie_backdrop_height">250dp</dimen>

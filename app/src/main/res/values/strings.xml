@@ -4,4 +4,10 @@
     <string name="discover">Discover</string>
     <string name="search">Search</string>
     <string name="no_movies_available_in_discover">There are no movies available in discover</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movie_detail">Movie Detail</string>
+    <string name="vote_avg">Vote Avg.</string>
+    <string name="popularity">Popularity</string>
+    <string name="adult">Adult</string>
+    <string name="overview">Overview</string>
 </resources>

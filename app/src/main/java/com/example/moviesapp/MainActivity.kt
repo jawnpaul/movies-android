@@ -1,6 +1,7 @@
 package com.example.moviesapp
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -29,5 +30,16 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         discoverViewModel.discoverMovies()
+
+        discoverViewModel.showBottomNavBar.observe(this) {
+            when (it) {
+                true -> {
+                    binding.navView.visibility = View.GONE
+                }
+                false -> {
+                    binding.navView.visibility = View.GONE
+                }
+            }
+        }
     }
 }

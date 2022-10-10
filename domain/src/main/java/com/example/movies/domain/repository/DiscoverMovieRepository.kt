@@ -8,4 +8,6 @@ import kotlinx.coroutines.flow.Flow
 interface DiscoverMovieRepository {
 
     suspend fun discoverMovies(): Flow<Either<Failure, List<Movie>>>
+
+    suspend fun getRecentDiscoveries(): Flow<Either<Failure, List<Movie>>>
 }
